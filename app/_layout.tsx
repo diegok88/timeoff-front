@@ -1,29 +1,65 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
+// app/_layout.tsx
+import { Stack } from "expo-router";
+import { AuthProvider } from "./context/authcontext";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+    <AuthProvider>
+      <Stack
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#f5f5f5',
+          },
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
+        {/* Tela de Login */}
+        <Stack.Screen
+          name="index"
+          options={{
+            title: "Login",
+            headerShown: false,
+          }}
+        />
+
+        {/* Tela Principal/Menu */}
+        <Stack.Screen
+          name="principal"
+          options={{
+            title: "Menu Principal",
+            headerBackTitle: "Sair", // Fixed typo
+          }}
+        />
+
+        {/* Tela de Cadastro */}
+        <Stack.Screen
+          name="cadsol"
+          options={{
+            title: "Nova Solicitação",
+            headerBackTitle: "Voltar",
+          }}
+        />
+
+        {/* Tela de Listagem */}
+        <Stack.Screen
+          name="listsol"
+          options={{
+            title: "Minhas Solicitações",
+            headerBackTitle: "Voltar",
+          }}
+        />
+
+        {/* Tela de Detalhes */}
+        <Stack.Screen
+          name="detsol"
+          options={{
+            title: "Detalhes da Solicitação",
+            headerBackTitle: "Voltar",
+          }}
+        />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    </AuthProvider>
   );
 }
