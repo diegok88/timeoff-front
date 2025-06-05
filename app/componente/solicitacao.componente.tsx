@@ -107,17 +107,26 @@ export default function SolicitacaoComponente() {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: "100%", // Largura um pouco menor para destacar
     height: "auto",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    padding: 20, // Padding maior
     gap: 20,
-    backgroundColor: "#003366",
-    borderWidth: 1,
-    borderColor: "#fff",
-    borderRadius: 8,
+    backgroundColor: "rgba(255, 255, 255, 0.9)", // Fundo branco semi-transparente
+    borderWidth: 2,
+    borderColor: "#FFFFFF", // Borda branca sólida
+    borderRadius: 8, // Bordas mais arredondadas
+    shadowColor: "#000", // Sombra para profundidade
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8, // Para Android
+    marginVertical: 10,
   },
   container2: {
     width: "100%",
@@ -129,34 +138,44 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   titulo: {
-    color: "#fff",
-    fontSize: 40,
+    color: "#003366", // Azul escuro para contraste
+    fontSize: 32, // Tamanho um pouco menor
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: 10,
     fontWeight: "bold",
+    textShadowColor: "rgba(255, 255, 255, 0.5)", // Sombra no texto
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   subtitulo: {
-    color: "#fff",
-    fontSize: 24,
+    color: "#003366", // Azul escuro
+    fontSize: 22,
     textAlign: "left",
     flex: 1,
+    fontWeight: "600", // Peso intermediário
   },
   aceito: {
-    width: 30,
-    height: 30,
-    backgroundColor: "green",
-    borderRadius: 15,
+    width: 35, // Tamanho aumentado
+    height: 35,
+    backgroundColor: "#4CAF50", // Verde mais vibrante
+    borderRadius: 17.5,
+    borderWidth: 2,
+    borderColor: "#FFFFFF", // Borda branca
   },
   pendente: {
-    width: 30,
-    height: 30,
-    backgroundColor: "yellow",
-    borderRadius: 15,
+    width: 35,
+    height: 35,
+    backgroundColor: "#FFC107", // Amarelo mais vibrante
+    borderRadius: 17.5,
+    borderWidth: 2,
+    borderColor: "#FFFFFF",
   },
   recusado: {
-    width: 30,
-    height: 30,
-    backgroundColor: "red",
-    borderRadius: 15,
+    width: 35,
+    height: 35,
+    backgroundColor: "#F44336", // Vermelho mais vibrante
+    borderRadius: 17.5,
+    borderWidth: 2,
+    borderColor: "#FFFFFF",
   },
 });
