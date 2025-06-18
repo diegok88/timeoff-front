@@ -81,7 +81,7 @@ export default function Principal() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#00B4D8",
+    backgroundColor: '#2C5282',
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   quadro: {
     width: "80%",
     height: "40%",
-    backgroundColor: "#003366",
+    backgroundColor: "#2C5282",
     borderRadius: 10,
   },
   containerbotao: {

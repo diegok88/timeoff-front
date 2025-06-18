@@ -15,46 +15,47 @@ export default function SolicitacaoComponente() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Derivar sodusu do user
   const sodusu = user && typeof user.usuide === "number" ? user.usuide : 0;
 
+  const fetchStatusCount = async () => {
+    if (!sodusu) {
+      setError("Usuário não autenticado");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response: SolQtd = await countByStatus(sodusu);
+      console.log("Resposta completa da API:", response);
+
+      // Validar resposta
+      const validatedResponse: SolQtd = {
+        aceito: Number(response.aceito) || 0,
+        pendente: Number(response.pendente) || 0,
+        recusado: Number(response.recusado) || 0,
+      };
+
+      setStatusCount(validatedResponse);
+      setError(null);
+    } catch (err: any) {
+      console.error("Erro ao processar resposta:", err);
+      setError("Erro ao carregar dados");
+      setStatusCount({
+        aceito: 0,
+        pendente: 0,
+        recusado: 0,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchStatusCount = async () => {
-      if (!sodusu) {
-        // Se sodusu for 0 (usuário não logado), definir erro
-        setError("Usuário não autenticado");
-        setLoading(false);
-        return;
-      }
-
-      try {
-        setLoading(true);
-        const response: SolQtd = await countByStatus(sodusu);
-        console.log("Resposta completa da API:", response);
-
-        // Validar resposta
-        const validatedResponse: SolQtd = {
-          aceito: Number(response.aceito) || 0,
-          pendente: Number(response.pendente) || 0,
-          recusado: Number(response.recusado) || 0,
-        };
-
-        setStatusCount(validatedResponse);
-        setError(null);
-      } catch (err: any) {
-        console.error("Erro ao processar resposta:", err);
-        setError("Erro ao carregar dados");
-        setStatusCount({
-          aceito: 0,
-          pendente: 0,
-          recusado: 0,
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchStatusCount();
+    const intevalId = setInterval(fetchStatusCount, 15000);
+    return () => clearInterval(intevalId)
+
   }, [sodusu]);
 
   if (!user) {

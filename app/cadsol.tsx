@@ -64,7 +64,7 @@ export default function CadastroSolicitacao() {
         sodqtd: parseInt(quantidade),
         soddti: startDate,
         soddtt: endDate,
-        sodsta: 'Pendente' // Status inicial
+        sodsta: 'PENDENTE' // Status inicial
       };
 
       await create(novaSolicitacao);

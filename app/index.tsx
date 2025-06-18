@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, TextInput, View, StyleSheet, Pressable, Alert, ActivityIndicator } from "react-native";
+import { Text, TextInput, View, StyleSheet, Pressable, Alert, ActivityIndicator, Image, ImageBackground, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, Keyboard } from "react-native";
 import { z } from "zod";
 import { useCRUD } from "./conexao/useCrud";
 import { useAuth } from "./context/auth";
@@ -67,60 +67,74 @@ export default function LoginScreen() {
   const errorMessage = error instanceof Error ? error.message : String(error) || "Erro ao carregar usuários";
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>TimeOff</Text>
-
-      {validationError && <Text style={styles.errorText}>{validationError}</Text>}
-      {error && <Text style={styles.errorText}>{errorMessage}</Text>}
-
-      {/* Campo de Nome de Usuário */}
-      <View style={styles.fieldContainer}>
-        <Icon name="account" size={20} color="#003366" style={styles.fieldIcon} />
-        <TextInput
-          style={styles.fieldInput}
-          placeholder="Nome de usuário"
-          placeholderTextColor="#aaa"
-          value={usunom}
-          onChangeText={setUsunom}
-          autoCapitalize="none"
-          editable={!isLoggingIn}
-        />
-      </View>
-
-      {/* Campo de Senha */}
-      <View style={styles.fieldContainer}>
-        <Icon name="lock" size={20} color="#003366" style={styles.fieldIcon} />
-        <TextInput
-          style={styles.fieldInput}
-          placeholder="Senha"
-          placeholderTextColor="#aaa"
-          value={ususen}
-          onChangeText={setUsusen}
-          secureTextEntry
-          editable={!isLoggingIn}
-        />
-      </View>
-
-      {/* Botão de Login */}
-      {isLoggingIn ? (
-        <ActivityIndicator size="large" color="#003366" />
-      ) : (
-        <Pressable
-          style={({ pressed }) => [
-            styles.submitButton,
-            {
-              backgroundColor: pressed ? "#0077B6" : "#003366",
-              opacity: pressed ? 0.7 : 1,
-            },
-          ]}
-          onPress={handleLogin}
-          disabled={loading || isLoggingIn}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <ImageBackground style={styles.container}
+          source={require('C:/Users/Usuário/Documents/vscode/React/Timeoff-frontend/timeoff/assets/images/fundoapk1.png')}
+          resizeMode="cover"
         >
-          <Text style={styles.submitButtonText}>Entrar</Text>
-          <Icon name="login" size={20} color="#fff" style={styles.buttonIcon} />
-        </Pressable>
-      )}
-    </View>
+          <Image
+            source={require('C:/Users/Usuário/Documents/vscode/React/Timeoff-frontend/timeoff/assets/images/timeoff5.jpg')}
+            style={{ width: 350, height: 350 }}
+          ></Image>
+
+          {validationError && <Text style={styles.errorText}>{validationError}</Text>}
+          {error && <Text style={styles.errorText}>{errorMessage}</Text>}
+
+          {/* Campo de Nome de Usuário */}
+          <View style={styles.fieldContainer}>
+            <Icon name="account" size={20} color="#003366" style={styles.fieldIcon} />
+            <TextInput
+              style={styles.fieldInput}
+              placeholder="Nome de usuário"
+              placeholderTextColor="#aaa"
+              value={usunom}
+              onChangeText={setUsunom}
+              autoCapitalize="none"
+              editable={!isLoggingIn}
+            />
+          </View>
+
+          {/* Campo de Senha */}
+          <View style={styles.fieldContainer}>
+            <Icon name="lock" size={20} color="#003366" style={styles.fieldIcon} />
+            <TextInput
+              style={styles.fieldInput}
+              placeholder="Senha"
+              placeholderTextColor="#aaa"
+              value={ususen}
+              onChangeText={setUsusen}
+              secureTextEntry
+              editable={!isLoggingIn}
+            />
+          </View>
+
+          {/* Botão de Login */}
+          {isLoggingIn ? (
+            <ActivityIndicator size="large" color="#003366" />
+          ) : (
+            <Pressable
+              style={({ pressed }) => [
+                styles.submitButton,
+                {
+                  backgroundColor: pressed ? "#0077B6" : "#003366",
+                  opacity: pressed ? 0.7 : 1,
+                },
+              ]}
+              onPress={handleLogin}
+              disabled={loading || isLoggingIn}
+            >
+              <Text style={styles.submitButtonText}>Entrar</Text>
+              <Icon name="login" size={20} color="#fff" style={styles.buttonIcon} />
+            </Pressable>
+          )}
+
+        </ImageBackground>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -128,15 +142,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "center",
     padding: 20,
-    backgroundColor: "#00B4D8",
-  },
-  title: {
-    fontSize: 40,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 40,
-    color: "#fff",
+    backgroundColor: "#2C5282",
   },
   fieldContainer: {
     flexDirection: "row",
@@ -176,6 +184,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     borderWidth: 1,
     borderColor: "#fff",
+    width: '100%',
   },
   submitButtonText: {
     color: "#fff",
